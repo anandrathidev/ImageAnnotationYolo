@@ -1,8 +1,10 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QApplication>
+#include <memory>
 
-class QCoreApplication;
+class QApplication;
 
 namespace IANN
 {
@@ -11,10 +13,9 @@ namespace IANN
     public:
         MainApp() = delete;
         MainApp(int argc, char* argv[]);
-        void RunApp();
+        int RunApp();
     private:
-        QCoreApplication* mQCoreApplication;
-
+        std::unique_ptr<QApplication> mQApplication;
     };
 
     class MainWindow : public QMainWindow
@@ -32,5 +33,4 @@ namespace IANN
     private:
         QStringList mMainMenuList;
     };
-
 }

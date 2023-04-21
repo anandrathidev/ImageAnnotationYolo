@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 SET(PROJECT "ImageAnnotation")
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
-project(${PROJECT} LANGUAGES CXX)
+PROJECT(${PROJECT} LANGUAGES CXX)
 
 
 SET( QT_ROOT "T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/" )
@@ -15,6 +15,8 @@ SET(QT_QMAKE_EXECUTABLE "T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc201
 
 SET(ENV(CMAKE_PREFIX_PATH) ${QTROOTS} )
 SET(CMAKE_PREFIX_PATH "$ENV{QT_ROOT}")
+
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 FIND_PACKAGE (Qt5
    COMPONENTS
@@ -53,6 +55,28 @@ TARGET_LINK_LIBRARIES(${PROJECT} Qt5::Widgets )
 
 TARGET_COMPILE_FEATURES(${PROJECT} PUBLIC cxx_std_17)
 
+SET_PROPERTY(TARGET ${PROJECT} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
+SET(QPATH 
+"PATH=%PATH%;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/lib;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/bin" 
+"QT_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/"
+"QT_QPA_PLATFORM_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/")
+
+#SET(QT_PLUGIN_PATH "QT_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/" "PATH=%PATH%;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/lib;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/bin" )
+#SET(ENV_PATH "QT_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/qwindows.dll" "PATH=%PATH%;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/lib;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/bin" )
+
+SET_TARGET_PROPERTIES(${PROJECT} PROPERTIES VS_DEBUGGER_ENVIRONMENT "${QPATH}" )
+SET_PROPERTY(TARGET ${PROJECT} PROPERTY VS_DEBUGGER_ENVIRONMENT 
+"\nPATH=%PATH%;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/lib;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/bin"
+"\nQT_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/"
+"\nQT_QPA_PLATFORM_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/")
 
 install(TARGETS ${PROJECT})
+
+#if (WIN32)
+#  ADD_CUSTOM_COMMAND(
+#    TARGET qcpp POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${PROJECT_SOURCE_DIR}/include/external/c.dll" "${CMAKE_BINARY_DIR}"
+#    COMMAND_EXPAND_LISTS
+#  )
+#endif()

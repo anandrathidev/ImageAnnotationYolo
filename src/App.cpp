@@ -1,21 +1,19 @@
 #include "App.h"
-#include <QtCore/qcoreapplication.h>
 #include <QtWidgets/QMenuBar>
 
 namespace IANN
 {
     MainApp::MainApp(int argc, char* argv[])
     {
-        mQCoreApplication = new QCoreApplication(argc, argv);
+        mQApplication.reset(new QApplication(argc, argv));
     }
 
-    void MainApp::RunApp()
+    int MainApp::RunApp()
     {
-        if (mQCoreApplication)
+        if (mQApplication.get())
         {
             MainWindow mainwin(nullptr);
-            mQCoreApplication->exec();
-
+            return mQApplication->exec();
         }
     }
 
