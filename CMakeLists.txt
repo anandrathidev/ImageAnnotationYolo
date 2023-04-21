@@ -26,10 +26,33 @@ FIND_PACKAGE (Qt5
    REQUIRED
 )
 
+FIND_PACKAGE(OpenCV 
+   HINTS
+       "C:/Users/arathi/Downloads/opencv/build"
+	REQUIRED )
+
+INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
+
+FIND_PACKAGE (Qt5
+   COMPONENTS
+       Widgets Core Gui
+   HINTS
+       "T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/lib/cmake/Qt5"
+   REQUIRED
+)
+
 SET( NAME_SRC
     ${PROJECT_SOURCE_DIR}/src/App.cpp
     ${PROJECT_SOURCE_DIR}/src/ImageAnnotationYolo.cpp
     ${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
+	${PROJECT_SOURCE_DIR}/src/ImageHandler.cpp
+)
+
+SET( NAME_INCUDE
+    ${PROJECT_SOURCE_DIR}/src/App.h
+    ${PROJECT_SOURCE_DIR}/src/ImageAnnotationYolo.h
+    ${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
+	${PROJECT_SOURCE_DIR}/src/ImageHandler.h
 )
 
 # QT MOC
@@ -54,6 +77,8 @@ TARGET_LINK_LIBRARIES(${PROJECT} Qt5::Core )
 TARGET_LINK_LIBRARIES(${PROJECT} Qt5::Widgets )
 
 TARGET_COMPILE_FEATURES(${PROJECT} PUBLIC cxx_std_17)
+
+TARGET_LINK_LIBRARIES( ${PROJECT} ${OpenCV_LIBS} )
 
 SET_PROPERTY(TARGET ${PROJECT} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
