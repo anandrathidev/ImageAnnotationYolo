@@ -27,20 +27,22 @@ namespace IANN
         }
     }
 
-    cv::Mat* ImageFile::ReadNextFrame()
+    const cv::Mat* ImageFile::ReadNextFrame()
     {
         if (mCapture.get())
         {
             if (!mCapture->isOpened())
+            {
                 throw "Error when reading video";
+            }
 
             *mCapture >> *mFrame;
+
             if (mFrame->empty())
             {
                 return nullptr;
             }
             return mFrame.get();
-
         }
         throw "Error stream not open";
     }

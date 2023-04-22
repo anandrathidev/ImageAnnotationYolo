@@ -73,9 +73,7 @@ INCLUDE_DIRECTORIES("T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64
 ADD_EXECUTABLE(${PROJECT} ${NAME_SRC} ${PROCESSED_MOCS})
 
 TARGET_LINK_LIBRARIES(${PROJECT} Qt5::Core )
-
 TARGET_LINK_LIBRARIES(${PROJECT} Qt5::Widgets )
-
 TARGET_COMPILE_FEATURES(${PROJECT} PUBLIC cxx_std_17)
 
 TARGET_LINK_LIBRARIES( ${PROJECT} ${OpenCV_LIBS} )
@@ -92,9 +90,11 @@ SET(QPATH
 
 SET_TARGET_PROPERTIES(${PROJECT} PROPERTIES VS_DEBUGGER_ENVIRONMENT "${QPATH}" )
 SET_PROPERTY(TARGET ${PROJECT} PROPERTY VS_DEBUGGER_ENVIRONMENT 
-"\nPATH=%PATH%;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/lib;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/bin"
+"\nPATH=%PATH%;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/lib;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/bin;C:/Users/arathi/Downloads/opencv/build/x64/vc16/bin"
 "\nQT_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/"
-"\nQT_QPA_PLATFORM_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/")
+"\nQT_QPA_PLATFORM_PLUGIN_PATH=T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/platforms/;T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/plugins/"
+
+)
 
 install(TARGETS ${PROJECT})
 

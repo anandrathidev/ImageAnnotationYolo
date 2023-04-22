@@ -11,11 +11,8 @@
 #include <iostream>
 #include <memory>
 
-namespace cv
-{
-    class VideoCapture;
-    class Mat;
-}
+#include <opencv2/core/core.hpp>
+#include <opencv2/opencv.hpp>
 
 namespace IANN
 {
@@ -23,8 +20,9 @@ namespace IANN
     {
     public:
         ImageFile() = delete;
-        ImageFile(std::string& filename): mFilename{ filename } {};
-        cv::Mat* ReadNextFrame();
+        ImageFile(const ImageFile&) = delete;
+        ImageFile(const std::string& filename) : mFilename{ filename.c_str() } {};
+        const cv::Mat* ReadNextFrame();
         void OpenImageFile(const std::string& filename);
         void Close();
         ~ImageFile() { Close(); };

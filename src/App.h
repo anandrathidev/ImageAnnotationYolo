@@ -3,13 +3,26 @@
 #include <QtWidgets/QMainWindow>
 #include <QApplication>
 #include <QAction>
+#include <QImage>
+#include <QPushButton>
+#include "ImageHandler.h"
 
 #include <memory>
 
 class QApplication;
+#define MENU_OPEN "Open"
+#define MENU_CLOSE "Close"
+#define MENU_EXPORT "Export"
+#define MENU_EXIT "Exit" 
+#define MENU_ANNONATEBOX "AnnonateBox"
+#define MENU_ANNONATESEG "AnnonateSeg"
+#define MENU_HELP "Help"
+#define MENU_ABOUT "About"
 
 namespace IANN
 {
+    class ImageFile;
+
     class MainApp
     {
     public:
@@ -38,7 +51,8 @@ namespace IANN
     private:
         void InitMenu(void);
         QAction& GetActions(QString& menuAction);
-
+        QImage* mImage;
+        QPushButton* mButonNext;
     public slots:
         void HandleNewFile();
         void HandleOpen();
@@ -58,15 +72,9 @@ namespace IANN
         QAction mExit;
         QAction mAnnonateBox;
         QAction mAnnonateSeg;
+        QAction mHelp;
+        QAction mAbout;
+        std::unique_ptr<ImageFile> mImageFile;
 
     };
 }
-
-#define MENU_OPEN "Open"
-#define MENU_CLOSE "Close"
-#define MENU_EXPORT "Export"
-#define MENU_EXIT "Exit" 
-#define MENU_ANNONATEBOX "AnnonateBox"
-#define MENU_ANNONATESEG "AnnonateSeg"
-#define MENU_HELP "Help"
-#define MENU_ABOUT "About"
