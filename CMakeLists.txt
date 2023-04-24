@@ -46,6 +46,7 @@ SET( NAME_SRC
     ${PROJECT_SOURCE_DIR}/src/ImageAnnotationYolo.cpp
     ${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
 	${PROJECT_SOURCE_DIR}/src/ImageHandler.cpp
+	${PROJECT_SOURCE_DIR}/src/AnnonateAutoUI.cpp
 )
 
 SET( NAME_INCUDE
@@ -53,6 +54,7 @@ SET( NAME_INCUDE
     ${PROJECT_SOURCE_DIR}/src/ImageAnnotationYolo.h
     ${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
 	${PROJECT_SOURCE_DIR}/src/ImageHandler.h
+	${PROJECT_SOURCE_DIR}/src/AnnonateAutoUI.h
 )
 
 # QT MOC
@@ -68,7 +70,13 @@ INCLUDE_DIRECTORIES( ${PROJECT_SOURCE_DIR}
    ${PROJECT_SOURCE_DIR}/extern/spdlog/include
 )
 
+FILE(
+    GLOB_RECURSE _header_list 
+    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "${CMAKE_SOURCE_DIR}/include/*.h*"
+)
 INCLUDE_DIRECTORIES("T:/p4/depot/LoL/__MAIN__/code/External/Qt/5.9.1/msvc2017_64/include")
+SOURCE_GROUP("Headers" FILES *.h )
 
 ADD_EXECUTABLE(${PROJECT} ${NAME_SRC} ${PROCESSED_MOCS})
 

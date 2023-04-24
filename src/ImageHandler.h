@@ -16,6 +16,12 @@
 
 namespace IANN
 {
+    enum class IMAGEFILE_COND
+    {
+        IMAGEFILE_BAD,
+        IMAGEFILE_GOOD
+    };
+
     class ImageFile
     {
     public:
@@ -23,14 +29,16 @@ namespace IANN
         ImageFile(const ImageFile&) = delete;
         ImageFile(const std::string& filename) : mFilename{ filename.c_str() } {};
         const cv::Mat* ReadNextFrame();
-        void OpenImageFile(const std::string& filename);
+        IMAGEFILE_COND OpenImageFile();
         void Close();
         ~ImageFile() { Close(); };
+        IMAGEFILE_COND GetIMAGEFILECOND() { return mImagefileCond; }
 
     protected:
         std::unique_ptr<cv::VideoCapture> mCapture;
         std::unique_ptr<cv::Mat> mFrame;
         std::string mFilename;
+        IMAGEFILE_COND mImagefileCond = IMAGEFILE_COND::IMAGEFILE_BAD;
     private:
 
     };

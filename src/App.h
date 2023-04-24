@@ -22,7 +22,7 @@ class QApplication;
 namespace IANN
 {
     class ImageFile;
-
+    class AnnonateAutoUI;
     class MainApp
     {
     public:
@@ -75,6 +75,6 @@ namespace IANN
         QAction mHelp;
         QAction mAbout;
         std::unique_ptr<ImageFile> mImageFile;
-
+        AnnonateAutoUI* mAnnonateAutoUI = nullptr;
     };
 }

@@ -1,5 +1,6 @@
 
 #include "App.h"
+#include "AnnonateAutoUI.h"
 #include <core/IANNErrors.h>
 #include <exception>
 
@@ -20,9 +21,8 @@ namespace IANN
         QHBoxLayout* hbox = new QHBoxLayout(this);
         // Crate widgets
         {
-
+            //mImage = new QImage();
         }
-
 
         InitMenu();
     }
@@ -83,6 +83,15 @@ namespace IANN
         {
             mImageFile.reset(new ImageFile(sfileName));
         }
+        IMAGEFILE_COND cond = mImageFile->OpenImageFile();
+        
+        if (cond == IMAGEFILE_COND::IMAGEFILE_GOOD)
+        {
+            mAnnonateAutoUI = new AnnonateAutoUI{ mImageFile.get() };
+            mAnnonateAutoUI->show();
+
+        }
+
     }
 
     void MainWindow::HandleExport()

@@ -17,14 +17,16 @@ namespace IANN
         }
     };
 
-    void ImageFile::OpenImageFile(const std::string& filename)
+    IMAGEFILE_COND ImageFile::OpenImageFile()
     {
-        mCapture.reset(new cv::VideoCapture{ filename });
+        mCapture.reset(new cv::VideoCapture{ mFilename });
         mFrame.reset(new cv::Mat);
         if (!mCapture->isOpened())
         {
             throw "Error when reading video";
         }
+        mImagefileCond = IMAGEFILE_COND::IMAGEFILE_GOOD;
+        return mImagefileCond;
     }
 
     const cv::Mat* ImageFile::ReadNextFrame()
