@@ -34,7 +34,7 @@ namespace IANN
         ~ImageFile() { Close(); };
         IMAGEFILE_COND GetIMAGEFILECOND() { return mImagefileCond; }
 
-    protected:
+    //protected:
         std::unique_ptr<cv::VideoCapture> mCapture;
         std::unique_ptr<cv::Mat> mFrame;
         std::string mFilename;

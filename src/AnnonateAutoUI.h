@@ -8,6 +8,8 @@ class QHBoxLayout;
 class QVBoxLayout;
 class QPushButton;
 class QLabel;
+class QScrollArea;
+class QTextEdit;
 namespace IANN
 {
     class ImageFile;
@@ -19,16 +21,33 @@ namespace IANN
         explicit AnnonateAutoUI(ImageFile* imageFile);
         //~AnnonateAutoUI() {};
 
+    
     private:
         void Init(void);
         QImage* mImage;
+        QImage* mImageProcessed;
+
+        QPushButton* mNextFrameButton;
+        QPushButton* mProcessFrames;
         QPushButton* mAnnonateCVButton;
         QPushButton* mAnnonateYOLOButton;
-        QLabel* dispLabel;
-        QHBoxLayout* mQHBoxLayout;
-        QVBoxLayout* mQVBoxLayout;
 
-    public slots:
+        QLabel* mDispLabel;
+        QLabel* mDispLabelProcessed;
+
+        QTextEdit* mInfo;
+        QWidget* mtmpWidget;
+
+        QScrollArea* mMainSaveScrollArea;
+        QHBoxLayout* mQHBoxLayoutImage;
+        QHBoxLayout* mQHBoxLayout1;
+        QHBoxLayout* mQHBoxLayout2;
+
+        QVBoxLayout* mQVBoxLayout;
+        QVBoxLayout* mQVBoxLayoutInner;
+
+    public Q_SLOTS:
+        void AnnonateCVButtonClicked();
 
     private:
 
