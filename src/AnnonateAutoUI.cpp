@@ -15,8 +15,11 @@
 #include <QTextEdit>
 #include <opencv2/opencv.hpp>
 
-#include "opencv2/highgui.hpp"
-#include "opencv2/features2d.hpp"
+#include <opencv2/highgui.hpp>
+#include <opencv2/features2d.hpp>
+#include <opencv2/xfeatures2d.hpp>
+
+
 
 namespace IANN
 {
@@ -99,17 +102,17 @@ namespace IANN
 
         //-- Step 1: Detect the keypoints using SURF Detector, compute the descriptors
         int minHessian = 800; //smaller value finds more and bigger value less features
-        Ptr<SURF> detector = SURF::create(minHessian);
-        std::vector<KeyPoint> keypoints1, keypoints2;
-        Mat descriptors1, descriptors2;
+        cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(minHessian);
+        std::vector<cv::KeyPoint> keypoints1, keypoints2;
+        cv::Mat descriptors1, descriptors2;
 
-        detector->detectAndCompute(img1, noArray(), keypoints1, descriptors1);
-        detector->detectAndCompute(img2, noArray(), keypoints2, descriptors2);
+        detector->detectAndCompute(img1, cv::noArray(), keypoints1, descriptors1);
+        detector->detectAndCompute(img2, cv::noArray(), keypoints2, descriptors2);
 
         //-- Step 2: Matching descriptor vectors with a FLANN based matcher
         // Since SURF is a floating-point descriptor NORM_L2 is used
-        Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create(cv::DescriptorMatcher::FLANNBASED);
-        std::vector<DMatch> knn_matches;
+        cv::Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create(cv::DescriptorMatcher::FLANNBASED);
+        std::vector<cv::DMatch> knn_matches;
 
         //no features images is not a screenshot
         if (descriptors1.empty() || descriptors2.empty()) {
@@ -137,6 +140,7 @@ namespace IANN
     }
 
 }
+
 /*
 #include "lite/lite.h"
 
